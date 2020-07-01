@@ -57,7 +57,9 @@ bool ListInset(SqList &L, int i, int e) {
 }
 // 删除第i个元素用引用变量e返回
 bool ListDelete(SqList &L, int i, int &e) {
-    
+    for (int j = i - 1; j < L.length-1; j++)
+        L.data[j] = L.data[j + 1];
+    return true;
 }
 // 打印顺序表
 void ListPrint(SqList L) {
