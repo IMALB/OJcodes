@@ -1,6 +1,6 @@
 /*
 * 内 容：静态顺序表 动态线性表
-* 最后修改日期：2020.7.01
+* 最后修改日期：2020.7.02
 */
 #include <iostream>
 using namespace std;
@@ -57,21 +57,46 @@ bool ListInset(SqList &L, int i, int e) {
 }
 // 删除第i个元素用引用变量e返回
 bool ListDelete(SqList &L, int i, int &e) {
+    if (i < 1 || i > L.length)
+        return false;
+    e = L.data[i - 1];
     for (int j = i - 1; j < L.length-1; j++)
         L.data[j] = L.data[j + 1];
+    L.length--;
     return true;
 }
+// 按位查找，用引用变量e接收数值
+bool GetElem(SqList L, int i, int &e) {
+    if (i < 1 || i > L.length)
+        return false;
+    e = L.data[i - 1];
+    return true;
+}
+// 按值查找，返回位序
+int LocateElem(SqList L, int e) {
+    for (int i = 0; i < L.length; i++)
+        if (L.data[i] == e)
+            return i+1;
+    return 0;  // 表示查找失败
+}
 // 打印顺序表
-void ListPrint(SqList L) {
+void PrintList(SqList L) {
     for (int i = 0; i< L.length; i++)
         cout << L.data[i] << " ";
     cout << endl;
 }
-
+// 打印地址
+void PrintIndex(SqList L) {
+    for (int i = 0; i < 5; i++)
+        cout << &L.data[i] << " ";
+}
 int main()
 {
     SqList L;     //声名一个线性表
     InitList(L);
-    cout << L.data[6] << endl;
+    L.data[0] = 0, L.data[1] = 1, L.data[2] = 2;
+    L.length = 3;
+    int e = 0;
+    PrintList(L);
     return 0;
 }
